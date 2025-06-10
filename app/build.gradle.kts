@@ -17,9 +17,6 @@ android {
         versionCode = 1
         versionName = "1.0"
 
-        //Get api_key from local.properties
-
-
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -47,13 +44,23 @@ android {
 dependencies {
     // ANDROID CORE AND DESIGN
     implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.activity.compose)
     implementation(platform(libs.androidx.compose.bom))
     implementation(libs.androidx.ui)
     implementation(libs.androidx.ui.graphics)
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
+
+    // LIFECYCLE AND LIVE DATA
+    implementation(libs.androidx.lifecycle.runtime.ktx)
+    implementation (libs.androidx.runtime.livedata)
+    api (libs.androidx.lifecycle.livedata.ktx)
+
+    // PREFERENCE
+    implementation (libs.androidx.preference.ktx)
+
+    // NAVIGATION
+    implementation (libs.androidx.navigation.compose)
 
     //NETWORK
     implementation (libs.retrofit)
