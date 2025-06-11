@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Holdings Vishal</string>
+    <string name="title_activity_splash_screen">SplashScreenActivity</string>
 </resources>
