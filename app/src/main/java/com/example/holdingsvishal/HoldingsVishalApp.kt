@@ -1,7 +1,9 @@
 package com.example.holdingsvishal
 
 import android.app.Application
+import dagger.hilt.android.HiltAndroidApp
 
+@HiltAndroidApp
 class HoldingsVishalApp : Application() {
 
     companion object {

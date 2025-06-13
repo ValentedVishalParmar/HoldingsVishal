@@ -17,6 +17,9 @@ android {
         versionCode = 1
         versionName = "1.0"
 
+        vectorDrawables {
+            useSupportLibrary = true
+        }
         testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
     }
 
@@ -29,15 +32,19 @@ android {
             )
         }
     }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_19
         targetCompatibility = JavaVersion.VERSION_19
     }
+
     kotlinOptions {
         jvmTarget = "19"
     }
+
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 }
 
@@ -69,6 +76,7 @@ dependencies {
 
     //ROOM DB
     implementation(libs.androidx.room.runtime)
+    implementation(libs.ads.mobile.sdk)
     ksp(libs.androidx.room.compiler)
     implementation(libs.androidx.room.ktx)
 

@@ -1,5 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
-    <style name="Theme.HoldingsVishal" parent="android:Theme.Material.Light.NoActionBar" />
+    <style name="Theme.HoldingsVishal" parent="android:Theme.Material.Light.NoActionBar" >
+        <item name="android:windowIsTranslucent">true</item> <!-- this is for disable default splash screen -->
+    </style>
+
 </resources>

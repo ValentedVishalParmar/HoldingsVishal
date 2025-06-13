@@ -10,35 +10,37 @@
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
-        android:icon="@mipmap/ic_launcher"
+        android:icon="@drawable/ic_app_icon"
         android:label="@string/app_name"
-        android:roundIcon="@mipmap/ic_launcher_round"
+        android:roundIcon="@drawable/ic_app_icon"
         android:supportsRtl="true"
         android:theme="@style/Theme.HoldingsVishal"
+        android:largeHeap="true"
+        android:requestLegacyExternalStorage="true"
+        android:name=".HoldingsVishalApp"
         tools:targetApi="31">
+        <!-- SPLASH SCREEN -->
         <activity
             android:name=".ui.screen.SplashScreenActivity"
             android:exported="true"
+            android:launchMode="singleTop"
+            android:screenOrientation="portrait"
             android:label="@string/title_activity_splash_screen"
             android:theme="@style/Theme.HoldingsVishal">
+
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <!-- MAIN SCREEN ACTIVITY -->
         <activity
             android:name=".ui.screen.MainActivity"
             android:exported="true"
             android:label="@string/app_name"
-            android:theme="@style/Theme.HoldingsVishal">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+            android:theme="@style/Theme.HoldingsVishal"/>
     </application>
 
 </manifest>
