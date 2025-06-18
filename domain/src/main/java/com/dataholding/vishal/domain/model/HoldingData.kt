@@ -6,5 +6,4 @@ data class HoldingData(
     val ltp: Double?,
     val avgPrice: Int?,
     val close: Int?
-
 )

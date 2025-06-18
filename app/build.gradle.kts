@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.kotlin.ksp)
+    alias(libs.plugins.kotlin.serialization)
 }
 
 android {
@@ -26,6 +27,7 @@ android {
     buildTypes {
         release {
             isMinifyEnabled = false
+            isDebuggable = true
             proguardFiles(
                 getDefaultProguardFile("proguard-android-optimize.txt"),
                 "proguard-rules.pro"
@@ -46,9 +48,21 @@ android {
         compose = true
         buildConfig = true
     }
+    composeOptions {
+        kotlinCompilerExtensionVersion = "1.5.7"
+    }
+    packaging {
+        resources {
+            excludes += "/META-INF/{AL2.0,LGPL2.1}"
+        }
+    }
 }
 
 dependencies {
+    // MODULE
+    implementation(project(":presentation"))
+    implementation(project(":data"))
+
     // ANDROID CORE AND DESIGN
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.activity.compose)
@@ -58,7 +72,8 @@ dependencies {
     implementation(libs.androidx.ui.tooling.preview)
     implementation(libs.androidx.material3)
 
-    // LIFECYCLE AND LIVE DATA
+    // LIFECYCLE AND LIVE DATA VIEWMODEL
+    implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation (libs.androidx.runtime.livedata)
     api (libs.androidx.lifecycle.livedata.ktx)
@@ -68,6 +83,10 @@ dependencies {
 
     // NAVIGATION
     implementation (libs.androidx.navigation.compose)
+    implementation(libs.androidx.hilt.navigation.compose)
+
+    // SERIALIZATION
+    api(libs.kotlinx.serialization.json)
 
     //NETWORK
     implementation (libs.retrofit)

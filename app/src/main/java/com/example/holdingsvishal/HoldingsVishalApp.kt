@@ -6,9 +6,7 @@ import dagger.hilt.android.HiltAndroidApp
 @HiltAndroidApp
 class HoldingsVishalApp : Application() {
 
-    companion object {
-
-    }
+    companion object;
 
     override fun onCreate() {
         super.onCreate()

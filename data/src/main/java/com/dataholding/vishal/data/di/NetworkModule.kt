@@ -20,7 +20,7 @@ object NetworkModule {
     private val networkJson = Json { ignoreUnknownKeys = true }
 
     @Provides
-    fun provideBaseUrl() = "https://35dee773a9ec441e9f38d5fc249406ce.api.mockbin.io/"
+    fun provideBaseUrl() = "https://35dee773a9ec441e9f38d5fc249406ce.api.mockbin.io"
 
 
     @Provides

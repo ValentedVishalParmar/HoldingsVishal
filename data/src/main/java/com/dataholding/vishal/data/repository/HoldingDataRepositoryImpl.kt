@@ -17,9 +17,9 @@ import javax.inject.Inject
 class HoldingDataRepositoryImpl @Inject constructor(
     private val holdingDataApiService: HoldingDataApiService,
     private val holdingDataMapper: HoldingDataMapper) : HoldingDataRepository {
-    override suspend fun getHoldingData(): Either<Failure, List<HoldingData?>?> {
+    override suspend fun apiCallForGetHoldingData(): Either<Failure, List<HoldingData?>?> {
        val data = safeApiCall(
-           apiCall = { holdingDataApiService.getHoldingData()},
+           apiCall = { holdingDataApiService.apiCallForGetHoldingData()},
            mapper = { holdingDataMapper.map(it)  }
        )
 
@@ -28,23 +28,3 @@ class HoldingDataRepositoryImpl @Inject constructor(
 
 }
 
-
-fun main() = runBlocking{
-    val apiService = MockApiService()
-    val emailListMapper = HoldingDataMapper()
-
-    // Initialize EmailRepositoryImpl with mock dependencies
-    val emailRepository = HoldingDataRepositoryImpl(apiService, emailListMapper)
-
-    // Test getEmailList
-    val emailListResult = emailRepository.getHoldingData()
-    println("Email List Result: $emailListResult")
-}
-
-class MockApiService: HoldingDataApiService{
-    override suspend fun getHoldingData(): Response<Data?> {
-        val data = Data(listOf(UserHolding(avgPrice = 12, close = 13, ltp = 23.3, quantity = 4,"SBI")))
-        return Response.success(data)
-    }
-
-}

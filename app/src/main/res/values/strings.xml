@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">Holdings Vishal</string>
     <string name="app_version">Version: %s</string>
+    <string name="portfolio">Portfolio</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
 </resources>

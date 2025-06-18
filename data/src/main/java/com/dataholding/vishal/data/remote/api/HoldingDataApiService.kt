@@ -8,6 +8,6 @@ import retrofit2.http.GET
 interface HoldingDataApiService {
 
     @GET("/")
-    suspend fun getHoldingData(): Response<Data?>
+    suspend fun apiCallForGetHoldingData(): Response<HoldingDataApiResponseModel>
 
 }

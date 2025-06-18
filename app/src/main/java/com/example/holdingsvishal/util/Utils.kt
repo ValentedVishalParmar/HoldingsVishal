@@ -86,7 +86,7 @@ val Context.isNetworkConnected: Boolean
             ) || it.hasTransport(NetworkCapabilities.TRANSPORT_BLUETOOTH) || it.hasTransport(
                 NetworkCapabilities.TRANSPORT_ETHERNET
             ) || it.hasTransport(NetworkCapabilities.TRANSPORT_VPN)
-        } ?: false
+        } == true
     }
 
 fun Activity.toast(msg: String?) {
