@@ -1,4 +1,4 @@
-package com.dataholding.vishal.coreui.components
+package com.dataholding.vishal.coreui.screen.component
 
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.wrapContentHeight
@@ -10,7 +10,7 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 
 @Composable
-fun ProfitAndLossCardView(profitAndLose: String, onClickedExpandCollapsed: () -> Unit = {}) {
+fun ProfitAndLossCardView(profitAndLose: String?, onClickedExpandCollapsed: () -> Unit = {}) {
     Card(
         modifier = Modifier
             .fillMaxWidth()

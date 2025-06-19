@@ -1,20 +1,17 @@
-package com.dataholding.vishal.coreui.components
+package com.dataholding.vishal.coreui.screen.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.ExtendedFloatingActionButton
 import androidx.compose.material3.HorizontalDivider
 import androidx.compose.material3.Icon
-import androidx.compose.material3.IconButton
 import androidx.compose.material3.ModalBottomSheet
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
@@ -125,7 +122,7 @@ fun ProfitLossBottomSheet(
                 HorizontalDivider(modifier = Modifier.height(1.dp))
 
                 // 5] TOTAL PROFIT OR LOSS
-                ProfitAndLossRow(profitAndLoss, isFromBottomSheet = true){
+                ProfitAndLossRow(profitAndLoss, isFromBottomSheet = true) {
                     scope.launch { sheetState.hide() }.invokeOnCompletion {
                         if (!sheetState.isVisible) {
                             showBottomSheet.value = false

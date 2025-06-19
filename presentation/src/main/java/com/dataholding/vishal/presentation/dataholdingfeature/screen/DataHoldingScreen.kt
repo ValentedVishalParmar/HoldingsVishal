@@ -1,20 +1,26 @@
 package com.dataholding.vishal.presentation.dataholdingfeature.screen
 
 import android.util.Log
+import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.lazy.itemsIndexed
 import androidx.compose.runtime.Composable
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.semantics.contentDescription
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.unit.dp
 import com.dataholding.vishal.core.error.getError
 import com.dataholding.vishal.coreui.R
-import com.dataholding.vishal.coreui.components.FullScreenError
-import com.dataholding.vishal.coreui.components.HoldingValueItem
-import com.dataholding.vishal.coreui.components.LinearFullScreenProgress
+import com.dataholding.vishal.coreui.screen.FullScreenError
+import com.dataholding.vishal.coreui.screen.component.HoldingValueItem
+import com.dataholding.vishal.coreui.screen.LinearFullScreenProgress
+import com.dataholding.vishal.coreui.screen.component.ProfitAndLossCardView
 import com.dataholding.vishal.presentation.dataholdingfeature.mvi.DataHoldingContract
 
 // todo:: 24 add the screen
@@ -47,31 +53,55 @@ fun DataHoldingScreenUI(
     state: DataHoldingContract.DataHoldingState.Success,
     dispatch: (DataHoldingContract.DataHoldingEvent) -> Unit
 ) {
-    LazyColumn(modifier = Modifier.padding(16.dp)) {
-        items(
-            state.dataHoldingList ?: listOf(),
+    Box(modifier = Modifier.fillMaxSize().background(color = Color.White), contentAlignment = Alignment.BottomCenter) {
+            var profitAndLoss: Double? = 0.0
+            var investment: Double? = 0.0
 
-        ) {
-            HoldingValueItem(
-                modifier = Modifier
-                    .padding(vertical = 8.dp)
-                    .clickable {
-                        dispatch.invoke(
-                            DataHoldingContract.DataHoldingEvent.DataHoldingItemClicked(
-                                it
+        //1] HOLDING DATA LIST
+        LazyColumn(modifier = Modifier.padding(top = 0.dp, bottom = 38.dp, start = 0.dp, end = 0.dp)) {
+            itemsIndexed(
+                state.dataHoldingList ?: listOf(),
+            ) { index, data ->
+                data?.let { newData ->
+                    with(newData) {
+
+                        investment = avgPrice?.times(quantity ?: 1)
+                        profitAndLoss = investment?.let { (ltp?.times(quantity?:1))?.minus(it) }
+
+                        profitAndLoss?.toInt()?.let {
+                            HoldingValueItem(
+                                modifier = Modifier
+                                    .padding(vertical = 8.dp)
+                                    .clickable {
+                                        dispatch.invoke(
+                                            DataHoldingContract.DataHoldingEvent.DataHoldingItemClicked(
+                                                data
+                                            )
+                                        )
+                                    },
+                                dataName = symbol ?: "-",
+                                ltpValue = ltp?.toString() ?: "-",
+                                netQty = quantity?.toString() ?: "-",
+                                plValue = profitAndLoss.toString(),
+                                isProfit = it >= 0,
+                                onItemClick = {
+                                    dispatch(
+                                        DataHoldingContract.DataHoldingEvent.DataHoldingItemClicked(
+                                            data
+                                        )
+                                    )
+                                },
                             )
-                        )
-                    },
-                dataName = it?.symbol?.toString() ?: "-",
-                ltpValue = it?.ltp?.toString() ?: "-",
-                netQty = it?.quantity?.toString() ?: "-",
-                plValue = it?.close?.toString() ?: "-",
-                isProfit = false,
-                onItemClick = {
-                    dispatch(DataHoldingContract.DataHoldingEvent.DataHoldingItemClicked(it))
-                },
-            )
+                        }
+                    }
+                }
+            }
         }
-    }
 
+
+        //2] LAST ITEM PROFIT AND LOSE VIEW
+        ProfitAndLossCardView(profitAndLoss?.toString(), onClickedExpandCollapsed = {
+
+        })
+    }
 }

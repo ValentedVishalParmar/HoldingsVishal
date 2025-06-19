@@ -33,6 +33,7 @@ import com.example.holdingsvishal.BuildConfig
 import com.example.holdingsvishal.R
 import com.example.holdingsvishal.ui.theme.HoldingsVishalTheme
 import com.example.holdingsvishal.util.Constants.SPLASH_DISPLAY_DURATION
+import com.example.holdingsvishal.util.finishAndNavigateTo
 import com.example.holdingsvishal.util.navigateTo
 import dagger.hilt.android.AndroidEntryPoint
 
@@ -59,7 +60,7 @@ class SplashScreenActivity : ComponentActivity() {
 
     private fun showSplashScreen() {
         Handler(Looper.getMainLooper()).postDelayed({
-            navigateTo(MainActivity::class.java)
+            finishAndNavigateTo(MainActivity::class.java)
         }, SPLASH_DISPLAY_DURATION)
     }
 

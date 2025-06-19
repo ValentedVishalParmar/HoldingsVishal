@@ -1,4 +1,4 @@
-package com.dataholding.vishal.coreui.components
+package com.dataholding.vishal.coreui.screen.component
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Row
@@ -24,7 +24,7 @@ import com.dataholding.vishal.coreui.R
 import com.dataholding.vishal.coreui.util.Symbol
 
 @Composable
-fun ProfitAndLossRow(profitAndLoss: String, isFromBottomSheet: Boolean = false , onClickExpand: () -> Unit = {}) {
+fun ProfitAndLossRow(profitAndLoss: String?, isFromBottomSheet: Boolean = false , onClickExpand: () -> Unit = {}) {
     Row(
         modifier = Modifier
             .fillMaxWidth()

@@ -1,4 +1,4 @@
-package com.dataholding.vishal.coreui.components
+package com.dataholding.vishal.coreui.screen.component
 
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement

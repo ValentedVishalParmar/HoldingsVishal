@@ -4,6 +4,6 @@ data class HoldingData(
     val symbol: String?,
     val quantity: Int?,
     val ltp: Double?,
-    val avgPrice: Int?,
-    val close: Int?
+    val avgPrice: Double?,
+    val close: Double?
 )

@@ -7,9 +7,9 @@ import kotlinx.serialization.Serializable
 @Serializable
 data class  UserHolding(
     @SerialName("avgPrice")
-    val avgPrice: Int?,
+    val avgPrice: Double?,
     @SerialName("close")
-    val close: Int?,
+    val close: Double?,
     @SerialName("ltp")
     val ltp: Double?,
     @SerialName("quantity")

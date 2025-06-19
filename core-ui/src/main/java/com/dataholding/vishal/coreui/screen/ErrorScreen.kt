@@ -1,4 +1,4 @@
-package com.dataholding.vishal.coreui.components
+package com.dataholding.vishal.coreui.screen
 
 import androidx.annotation.DrawableRes
 import androidx.compose.foundation.Image
@@ -6,9 +6,7 @@ import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.size
-import androidx.compose.material3.Icon
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.Immutable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.res.painterResource
