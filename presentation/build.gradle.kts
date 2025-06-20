@@ -62,6 +62,7 @@ dependencies {
 
     // MATERIAL
     implementation(libs.material)
+    implementation(libs.androidx.material3.android)
 
     //HILT FOR DI
     ksp(libs.hilt.android.compiler)

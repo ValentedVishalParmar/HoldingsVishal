@@ -34,6 +34,7 @@ fun HoldingValueItem(
     netQty: String = "3",
     plValue: String = "1517.46",
     isProfit: Boolean = true,
+    onItemClick:()->Unit = {}
 ) {
     Column(
         modifier = modifier
