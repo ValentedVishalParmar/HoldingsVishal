@@ -33,7 +33,8 @@ class MainActivity : ComponentActivity() {
 
 @Composable
 fun DataHoldingApp(navController: NavHostController) {
-    Scaffold(modifier = Modifier.fillMaxSize(),
+    Scaffold(
+        modifier = Modifier.fillMaxSize(),
         bottomBar = {
             BottomNavigationBar(navController = navController)
         }

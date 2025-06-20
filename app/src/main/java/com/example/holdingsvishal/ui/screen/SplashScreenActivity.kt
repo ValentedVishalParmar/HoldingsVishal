@@ -22,21 +22,19 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dataholding.vishal.coreui.widgets.CircleImageView
 import com.dataholding.vishal.coreui.widgets.TextLargeTitle
 import com.dataholding.vishal.coreui.widgets.TextSmallTitle
-import com.dataholding.vishal.coreui.widgets.TextTitleMedium
 import com.example.holdingsvishal.BuildConfig
 import com.example.holdingsvishal.R
 import com.example.holdingsvishal.ui.theme.HoldingsVishalTheme
 import com.example.holdingsvishal.util.Constants.SPLASH_DISPLAY_DURATION
 import com.example.holdingsvishal.util.finishAndNavigateTo
-import com.example.holdingsvishal.util.navigateTo
 import dagger.hilt.android.AndroidEntryPoint
-
 
 @SuppressLint("CustomSplashScreen")
 @AndroidEntryPoint
@@ -75,11 +73,8 @@ fun SplashViews() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Bottom
     ) {
-        // String
-       val appName =  LocalContext.current.getString(R.string.app_name)
-        val appVersion = LocalContext.current.getString(R.string.app_version, BuildConfig.VERSION_NAME)
 
-        // SPLASH LOGO
+        // APP LOGO
         CircleImageView(imageId = R.drawable.ic_app_icon)
 
         Spacer(Modifier.padding(120.dp))
@@ -87,7 +82,7 @@ fun SplashViews() {
         // APP NAME
         TextLargeTitle(
             textAlign = TextAlign.Center,
-            text = appName,
+            text = stringResource(R.string.app_name),
             modifier = Modifier
                 .fillMaxWidth()
                 .wrapContentHeight()
@@ -98,7 +93,7 @@ fun SplashViews() {
 
         // APP VERSION
         TextSmallTitle(
-            text = appVersion,
+            text = stringResource(R.string.app_version),
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()

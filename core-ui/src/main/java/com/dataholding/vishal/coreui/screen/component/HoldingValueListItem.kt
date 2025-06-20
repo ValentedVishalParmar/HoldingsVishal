@@ -34,17 +34,19 @@ fun HoldingValueItem(
     netQty: String = "3",
     plValue: String = "1517.46",
     isProfit: Boolean = true,
-    onItemClick: () -> Unit = {}) {
+) {
     Column(
         modifier = modifier
             .fillMaxWidth()
             .wrapContentHeight()
-            .background(color = colorResource(R.color.white))) {
+            .background(color = colorResource(R.color.white))
+    ) {
 
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight().padding(8.dp),
+                .wrapContentHeight()
+                .padding(8.dp),
             horizontalArrangement = Arrangement.SpaceBetween
 
         ) {
@@ -52,7 +54,7 @@ fun HoldingValueItem(
             // 1. HOLDING NAME
             TextLargeTitleBold(textAlign = TextAlign.Start, dataName)
 
-
+            // 2.LTP VALUE VIEWS
             Row(
                 modifier = Modifier
                     .wrapContentWidth()
@@ -69,13 +71,13 @@ fun HoldingValueItem(
         Row(
             modifier = Modifier
                 .fillMaxWidth()
-                .wrapContentHeight().padding(8.dp),
+                .wrapContentHeight()
+                .padding(8.dp),
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.SpaceBetween
 
         ) {
-
-
+            //3. NET QTY
             Row(
                 modifier = Modifier
                     .wrapContentWidth()
@@ -86,42 +88,32 @@ fun HoldingValueItem(
                 TextSmallTitle(text = netQty, textAlign = TextAlign.Start)
             }
 
-            if (isProfit) {
-                Row(
-                    modifier = Modifier
-                        .wrapContentWidth()
-                        .wrapContentHeight(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(stringResource(R.string.pl_value), color = Color.Gray)
-                    Text(
-                        text = Symbol.SYM_RUPEES.plus(plValue),
-                        textAlign = TextAlign.Start,
-                        color = Color.Green
-                    )
-                }
-            } else {
-
-
-                Row(
-                    modifier = Modifier
-                        .wrapContentWidth()
-                        .wrapContentHeight(),
-                    verticalAlignment = Alignment.CenterVertically,
-                    horizontalArrangement = Arrangement.Center
-                ) {
-                    Text(stringResource(R.string.pl_value), color = Color.Gray)
-                    Text(
-                        text = Symbol.SYM_RUPEES_MINUS.plus(plValue),
-                        textAlign = TextAlign.Start,
-                        color = Color.Red
-                    )
-                }
+            // 4. P&L VIEWS
+            Row(
+                modifier = Modifier
+                    .wrapContentWidth()
+                    .wrapContentHeight(),
+                verticalAlignment = Alignment.CenterVertically,
+                horizontalArrangement = Arrangement.Center
+            ) {
+                Text(stringResource(R.string.pl_value), color = Color.Gray)
+                Text(
+                    text = if (isProfit) Symbol.SYM_RUPEES.plus(plValue) else Symbol.SYM_RUPEES_MINUS.plus(
+                        plValue
+                    ),
+                    textAlign = TextAlign.Start,
+                    color = if (isProfit) Color.Green else Color.Red
+                )
             }
+
         }
 
-        HorizontalDivider(modifier = Modifier.fillMaxWidth().height(1.dp))
+        //5. DIVIDER
+        HorizontalDivider(
+            modifier = Modifier
+                .fillMaxWidth()
+                .height(1.dp)
+        )
 
     }
 }

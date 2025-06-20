@@ -13,7 +13,7 @@ import androidx.compose.ui.unit.dp
 
 
 @Composable
-fun CircleImageView(modifier: Modifier= Modifier, imageId: Int, size: Dp=200.dp) {
+fun CircleImageView(modifier: Modifier = Modifier, imageId: Int, size: Dp = 200.dp) {
     Image(
         painter = painterResource(imageId),
         contentDescription = "Image",

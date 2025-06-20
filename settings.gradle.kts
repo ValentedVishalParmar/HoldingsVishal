@@ -19,10 +19,10 @@ dependencyResolutionManagement {
     }
 }
 
-rootProject.name = "Holdings Vishal"
+rootProject.name = "Vishal Holding Data"
 include(":app")
-include(":data")
-include(":domain")
-include(":presentation")
 include(":core")
 include(":core-ui")
+include(":presentation")
+include(":domain")
+include(":data")

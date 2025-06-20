@@ -40,8 +40,20 @@ android {
 dependencies {
     implementation(project(":domain"))
     implementation(project(":core"))
+
+    // CORE
+    implementation(libs.kotlin.reflect)
+    implementation(libs.androidx.core.ktx)
+    implementation(libs.androidx.appcompat)
+    implementation(libs.material)
+
+    // RETROFIT FOR NETWORKING
     implementation(libs.retrofit)
+
+    // LOGGING INTERCEPTOR
     implementation(libs.logging.interceptor)
+
+    // SERIALIZATION
     api(libs.kotlinx.serialization.json)
     implementation(libs.retrofit2.kotlinx.serialization.converter)
 
@@ -49,11 +61,8 @@ dependencies {
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
 
+    // TESTING
     testImplementation(libs.bundles.unittest)
-    implementation(libs.kotlin.reflect)
-    implementation(libs.androidx.core.ktx)
-    implementation(libs.androidx.appcompat)
-    implementation(libs.material)
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     androidTestImplementation(libs.androidx.espresso.core)

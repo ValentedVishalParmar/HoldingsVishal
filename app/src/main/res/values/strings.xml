@@ -3,4 +3,8 @@
     <string name="app_version">Version: %s</string>
     <string name="portfolio">Portfolio</string>
     <string name="title_activity_splash_screen">SplashScreenActivity</string>
+    <string name="funds">Funds</string>
+    <string name="invest">Invest</string>
+    <string name="orders">Orders</string>
+    <string name="watchlist">Watchlist</string>
 </resources>

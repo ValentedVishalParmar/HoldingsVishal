@@ -17,7 +17,7 @@ import com.dataholding.vishal.coreui.R
 import com.dataholding.vishal.coreui.widgets.TextSmallTitle
 
 @Composable
-fun FullScreenError(errorMsg: String, @DrawableRes errorIconId: Int) {
+fun FullScreenError(errorMsg: String, @DrawableRes errorIconId: Int = R.drawable.ic_error) {
     Column(modifier = Modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally) {

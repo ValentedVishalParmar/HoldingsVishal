@@ -12,7 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.holdingsvishal.R
 
 @Composable
 fun FundScreen() {
@@ -23,13 +25,11 @@ fun FundScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // Icon on the screen
         Icon(
             imageVector = Icons.Default.CurrencyRupee,
-            contentDescription = "Fund"
+            contentDescription = stringResource(R.string.funds)
         )
-        // Text on the screen
-        Text(text = "Fund", color = Color.Black)
+        Text(text = stringResource(R.string.funds), color = Color.Black)
     }
 }
 

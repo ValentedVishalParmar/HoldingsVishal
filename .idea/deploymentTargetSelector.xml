@@ -16,6 +16,9 @@
       <SelectionState runConfigName="ProfitLossBottomSheetP - ProfitLossBottomSheet">
         <option name="selectionMode" value="DROPDOWN" />
       </SelectionState>
+      <SelectionState runConfigName="Vishal_Holding_Data.app">
+        <option name="selectionMode" value="DROPDOWN" />
+      </SelectionState>
     </selectionStates>
   </component>
 </project>

@@ -12,7 +12,9 @@ import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.holdingsvishal.R
 
 @Composable
 fun WatchListScreen() {
@@ -23,10 +25,11 @@ fun WatchListScreen() {
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        // Icon on the screen
-        Icon(imageVector = Icons.Default.Menu, contentDescription = "Watchlist")
-        // Text on the screen
-        Text(text = "Watchlist", color = Color.Black)
+        Icon(
+            imageVector = Icons.Default.Menu,
+            contentDescription = stringResource(R.string.watchlist)
+        )
+        Text(text = stringResource(R.string.watchlist), color = Color.Black)
     }
 }
 

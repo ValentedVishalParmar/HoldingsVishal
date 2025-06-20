@@ -32,5 +32,5 @@ fun ProfitAndLossCardView(profitAndLose: String?, onClickedExpandCollapsed: () -
 @Preview(showBackground = true, name = "ProfitAndLossCardViewP")
 @Composable
 fun ProfitAndLossCardViewP() {
-    ProfitAndLossCardView("123.33(2.44%)") {}
+    ProfitAndLossCardView("123.33") {}
 }

@@ -16,6 +16,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
@@ -24,7 +25,11 @@ import com.dataholding.vishal.coreui.R
 import com.dataholding.vishal.coreui.util.Symbol
 
 @Composable
-fun ProfitAndLossRow(profitAndLoss: String?, isFromBottomSheet: Boolean = false , onClickExpand: () -> Unit = {}) {
+fun ProfitAndLossRow(
+    profitAndLoss: String?,
+    isFromBottomSheet: Boolean = false,
+    onClickExpand: () -> Unit = {}
+) {
     Row(
         modifier = Modifier
             .fillMaxWidth()
@@ -40,7 +45,10 @@ fun ProfitAndLossRow(profitAndLoss: String?, isFromBottomSheet: Boolean = false 
             verticalAlignment = Alignment.CenterVertically,
             horizontalArrangement = Arrangement.Start
         ) {
+            //1. PROFIT AND LOSE
             Text(stringResource(R.string.profit_and_loss))
+
+            //2. DROPDOWN ICON
             IconButton(
                 modifier = Modifier
                     .width(24.dp)
@@ -48,13 +56,19 @@ fun ProfitAndLossRow(profitAndLoss: String?, isFromBottomSheet: Boolean = false 
                     onClickExpand()
                 }) {
                 Icon(
-                    imageVector = if (isFromBottomSheet)Icons.Default.ArrowDropDown else Icons.Default.ArrowDropUp,
+                    imageVector = if (isFromBottomSheet) Icons.Default.ArrowDropDown else Icons.Default.ArrowDropUp,
                     contentDescription = null
                 )
             }
         }
+        // 3. VALUE OF PROFIT AND LOSE
         Text(
-            text = Symbol.SYM_RUPEES.plus(profitAndLoss),
+            color = if (profitAndLoss?.toDouble()
+                    ?.let { it >= 0.0 } == true
+            ) Color.Green else Color.Red,
+            text = if (profitAndLoss?.toDouble()?.let { it >= 0.0 } == true) Symbol.SYM_RUPEES.plus(
+                profitAndLoss
+            ) else Symbol.SYM_RUPEES_MINUS.plus(profitAndLoss),
             textAlign = TextAlign.Start,
         )
     }
@@ -65,5 +79,5 @@ fun ProfitAndLossRow(profitAndLoss: String?, isFromBottomSheet: Boolean = false 
 fun ProfitAndLossRowP() {
     ProfitAndLossRow(onClickExpand = {
 
-    }, profitAndLoss = "127.00(2.44%)")
+    }, profitAndLoss = "127.00")
 }

@@ -30,12 +30,15 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(url: String, loggingInterceptor: HttpLoggingInterceptor): Retrofit  = Retrofit.Builder().baseUrl(url).addConverterFactory(networkJson.asConverterFactory("application/json".toMediaType()))
+    fun provideRetrofit(url: String, loggingInterceptor: HttpLoggingInterceptor): Retrofit =
+        Retrofit.Builder().baseUrl(url)
+            .addConverterFactory(networkJson.asConverterFactory("application/json".toMediaType()))
             .client(OkHttpClient.Builder().addInterceptor(loggingInterceptor).build())
             .build()
 
     @Provides
     @Singleton
-    fun provideApiService(retrofit: Retrofit): HoldingDataApiService = retrofit.create(HoldingDataApiService::class.java)
+    fun provideApiService(retrofit: Retrofit): HoldingDataApiService =
+        retrofit.create(HoldingDataApiService::class.java)
 }
 

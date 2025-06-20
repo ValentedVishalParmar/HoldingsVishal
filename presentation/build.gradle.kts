@@ -1,7 +1,7 @@
 plugins {
+    // todo:: 20] update here with below plugins
     alias(libs.plugins.android.library)
     alias(libs.plugins.kotlin.android)
-    // todo:: 20] update here with below plugins
     alias(libs.plugins.screenshot)
     alias(libs.plugins.dagger.hilt)
     alias(libs.plugins.kotlin.ksp)
@@ -52,18 +52,27 @@ android {
 dependencies {
     // todo:: 23] add :domain :code : core-ui hilt and its compiler
     api(project(":domain"))
-    implementation(project(":core"))
+    api(project(":core"))
     api(project(":core-ui"))
+
+    // CORE
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+    implementation(libs.kotlin.reflect)
+
+    // MATERIAL
     implementation(libs.material)
+
+    //HILT FOR DI
     ksp(libs.hilt.android.compiler)
     implementation(libs.hilt.android)
+
+    // MVVM, LIFECYCLE, VIEWMODEL
     implementation(libs.androidx.lifecycle.runtime.ktx)
     implementation(libs.androidx.lifecycle.viewmodel.ktx)
     implementation(libs.androidx.hilt.navigation.compose)
-    implementation(libs.kotlin.reflect)
 
+    // TESTING
     testImplementation(libs.bundles.unittest)
     androidTestImplementation(libs.bundles.androidtest)
     testImplementation(libs.turbine)

@@ -29,9 +29,10 @@ import com.dataholding.vishal.coreui.widgets.CircleImageView
 fun TopAppBarWithSearch(
     title: String,
     modifier: Modifier = Modifier,
-    onMenuClick: (menuId: Int)-> Unit = {}
+    onMenuClick: (menuId: Int) -> Unit = {}
 ) {
     TopAppBar(
+        modifier = modifier,
         colors = TopAppBarDefaults.centerAlignedTopAppBarColors(
             containerColor = MaterialTheme.colorScheme.primaryContainer,
             titleContentColor = MaterialTheme.colorScheme.primary,
@@ -50,18 +51,19 @@ fun TopAppBarWithSearch(
         },
         actions = {
             // 3. UPDOWN ICON
-            IconButton({onMenuClick(TopBarMenu.VALUES.id)}) {
+            IconButton({ onMenuClick(TopBarMenu.VALUES.id) }) {
                 Icon(imageVector = Icons.Default.BarChart, contentDescription = null)
             }
 
             VerticalDivider(
-                modifier = Modifier.padding(0.dp,12.dp)
+                modifier = Modifier
+                    .padding(0.dp, 12.dp)
                     .fillMaxHeight()  //fill the max height
                     .width(2.dp)
             )
 
             // 4. SEARCH ICON
-            IconButton({onMenuClick(TopBarMenu.SEARCH.id)}) {
+            IconButton({ onMenuClick(TopBarMenu.SEARCH.id) }) {
                 Icon(imageVector = Icons.Default.Search, contentDescription = "Search")
             }
         },

@@ -5,5 +5,10 @@ data class HoldingData(
     val quantity: Int?,
     val ltp: Double?,
     val avgPrice: Double?,
-    val close: Double?
-)
+    val close: Double?,
+    var todayInvestment: Double = 0.0,
+    var currentValue: Double = 0.0,
+    var totalProfitAndLoss: Double = 0.0,
+    var totalInvestmentValue: Double = 0.0,
+    var todayProfitLoss: Double = 0.0,
+    )

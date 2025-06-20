@@ -1,12 +1,12 @@
 package com.example.holdingsvishal.ui.screen
 
 import android.util.Log
-import androidx.compose.foundation.layout.consumeWindowInsets
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
 import androidx.compose.material3.Scaffold
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
@@ -45,9 +45,10 @@ fun PortfolioScreen() {
             startDestination = DataHolding,
             modifier = Modifier
                 .padding(innerPadding)
-                .consumeWindowInsets(innerPadding)
+
         ) {
             composable<DataHolding> {
+                val showBottomSheet: MutableState<Boolean> = mutableStateOf(false)
                 val viewModel: DataHoldingViewModel = hiltViewModel()
                 val state = viewModel.state.collectAsStateWithLifecycle()
                 val dispatch: (DataHoldingContract.DataHoldingEvent) -> Unit = { event ->
@@ -57,15 +58,21 @@ fun PortfolioScreen() {
                 LaunchedEffect(key1 = Unit) {
                     viewModel.effect.collect { effect ->
                         when (effect) {
-                            is DataHoldingContract.DataHoldingEffect.NavigateToDataHoldingDetailsDetails ->
-                                with(effect) {
-                                    Log.d("DATA>>>", "DataHoldingApp: event")
-                                }
+                            is DataHoldingContract.DataHoldingEffect.NavigateToDataHoldingDetailsDetails -> with(
+                                effect
+                            ) {
+                                Log.d("DATA>>>", "DataHoldingApp: event")
+                            }
                         }
 
                     }
                 }
-                DataHoldingScreen(state = state.value, dispatch = dispatch)
+
+                DataHoldingScreen(
+                    state = state.value,
+                    showBottomSheet = showBottomSheet,
+                    dispatch = dispatch
+                )
             }
 
         }

@@ -6,5 +6,5 @@ import com.dataholding.vishal.domain.model.HoldingData
 
 interface HoldingDataRepository {
 
-    suspend fun apiCallForGetHoldingData() : Either<Failure, List<HoldingData?>?>
+    suspend fun apiCallForGetHoldingData(): Either<Failure, List<HoldingData?>?>
 }

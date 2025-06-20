@@ -45,24 +45,34 @@ android {
 
 dependencies {
 
+    //CORE
     implementation(libs.androidx.core.ktx)
     implementation(libs.androidx.appcompat)
+
+    // MATERIAL
     implementation(libs.material)
     implementation(libs.androidx.material3)
-    api(libs.androidx.activity.compose)
+    api(libs.androidx.material.icons.extended)
+
+    // COMPOSE
     api(platform(libs.androidx.compose.bom))
-    api(libs.androidx.material3)
+    api(libs.androidx.activity.compose)
     api(libs.androidx.ui.tooling.preview)
+    implementation(libs.androidx.constraintlayout.compose)
+
     // SERIALIZATION
     api(libs.kotlinx.serialization.json)
+
+    // EXTENDED SPAN
+    implementation(libs.extendedspans)
+
     // NAVIGATION
     implementation (libs.androidx.navigation.compose)
+
+    // GLIDE
+    api(libs.glide)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)
     debugApi(libs.androidx.ui.tooling)
-    api(libs.glide)
-    implementation(libs.androidx.constraintlayout.compose)
-    implementation(libs.extendedspans)
-    api(libs.androidx.material.icons.extended)
 }

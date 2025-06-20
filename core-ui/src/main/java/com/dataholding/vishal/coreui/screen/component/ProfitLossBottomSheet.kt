@@ -43,10 +43,8 @@ fun ProfitLossBottomSheet(
     onDismissBottomSheet: (showBottomSheet: Boolean) -> Unit = {}
 ) {
 
-    // Screen content
     val sheetState = rememberModalBottomSheetState()
     val scope = rememberCoroutineScope()
-
 
     Scaffold(
         floatingActionButton = {

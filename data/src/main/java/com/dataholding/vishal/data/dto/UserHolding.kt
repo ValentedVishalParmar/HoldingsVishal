@@ -5,7 +5,7 @@ import kotlinx.serialization.SerialName
 import kotlinx.serialization.Serializable
 
 @Serializable
-data class  UserHolding(
+data class UserHolding(
     @SerialName("avgPrice")
     val avgPrice: Double?,
     @SerialName("close")

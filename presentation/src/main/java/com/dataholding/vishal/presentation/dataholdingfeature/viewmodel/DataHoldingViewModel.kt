@@ -12,7 +12,6 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
-import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,13 +22,16 @@ import javax.inject.Inject
 *  implement specific contract and override its method for event
 * */
 @HiltViewModel
-class DataHoldingViewModel @Inject constructor(private val dataUseCase: HoldingDataUseCase): ViewModel(), DataHoldingContract {
+class DataHoldingViewModel @Inject constructor(private val dataUseCase: HoldingDataUseCase) :
+    ViewModel(), DataHoldingContract {
 
     //1]
     private val mutableUIState: MutableStateFlow<DataHoldingContract.DataHoldingState> =
         MutableStateFlow(DataHoldingContract.DataHoldingState.Loading)
-//2]
-    private val mutableSharedFlow: MutableSharedFlow<DataHoldingContract.DataHoldingEffect> = MutableSharedFlow()
+
+    //2]
+    private val mutableSharedFlow: MutableSharedFlow<DataHoldingContract.DataHoldingEffect> =
+        MutableSharedFlow()
 
     //3]
     override val effect: SharedFlow<DataHoldingContract.DataHoldingEffect>
@@ -37,23 +39,30 @@ class DataHoldingViewModel @Inject constructor(private val dataUseCase: HoldingD
 
     //4]
     override val state: StateFlow<DataHoldingContract.DataHoldingState>
-        get() = mutableUIState.stateInWhileActive(viewModelScope, DataHoldingContract.DataHoldingState.Loading) {
+        get() = mutableUIState.stateInWhileActive(
+            viewModelScope,
+            DataHoldingContract.DataHoldingState.Loading
+        ) {
             event(DataHoldingContract.DataHoldingEvent.LoadDataHoldingList)
         }
 
     override fun event(event: DataHoldingContract.DataHoldingEvent) {
         //7]
-       when(event) {
-           is DataHoldingContract.DataHoldingEvent.LoadDataHoldingList -> {
-               loadDataHoldings()
-           }
+        when (event) {
+            is DataHoldingContract.DataHoldingEvent.LoadDataHoldingList -> {
+                loadDataHoldings()
+            }
 
-           is DataHoldingContract.DataHoldingEvent.DataHoldingItemClicked -> {
-               viewModelScope.launch {
-                   mutableSharedFlow.emit(DataHoldingContract.DataHoldingEffect.NavigateToDataHoldingDetailsDetails(dataHoldingData = event.dataHoldingData ))
-               }
-           }
-       }
+            is DataHoldingContract.DataHoldingEvent.DataHoldingItemClicked -> {
+                viewModelScope.launch {
+                    mutableSharedFlow.emit(
+                        DataHoldingContract.DataHoldingEffect.NavigateToDataHoldingDetailsDetails(
+                            dataHoldingData = event.dataHoldingData
+                        )
+                    )
+                }
+            }
+        }
     }
 
     //6]
@@ -61,7 +70,7 @@ class DataHoldingViewModel @Inject constructor(private val dataUseCase: HoldingD
         viewModelScope.launch {
             dataUseCase.getInvokeHoldingDataApiCall().fold({
                 updateState(DataHoldingContract.DataHoldingState.Error(it))
-            },{
+            }, {
                 updateState(DataHoldingContract.DataHoldingState.Success(it))
             })
         }

@@ -12,8 +12,11 @@ import com.example.holdingsvishal.navigation.Invest
 import com.example.holdingsvishal.navigation.Orders
 import com.example.holdingsvishal.navigation.Portfolio
 import com.example.holdingsvishal.navigation.Watchlist
-import com.example.holdingsvishal.ui.screen.*
-
+import com.example.holdingsvishal.ui.screen.FundScreen
+import com.example.holdingsvishal.ui.screen.InvestScreen
+import com.example.holdingsvishal.ui.screen.OrderScreen
+import com.example.holdingsvishal.ui.screen.PortfolioScreen
+import com.example.holdingsvishal.ui.screen.WatchListScreen
 
 @Composable
 fun NavHostContainer(

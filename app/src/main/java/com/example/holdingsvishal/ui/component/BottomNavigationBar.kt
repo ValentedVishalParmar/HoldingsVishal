@@ -23,17 +23,17 @@ fun BottomNavigationBar(navController: NavHostController) {
         val currentDestination = navBackStackEntry?.value?.destination
 
         topLevelRoutes.forEach { topLevelRoute ->
+
             NavigationBarItem(
                 icon = { Icon(topLevelRoute.icon, contentDescription = topLevelRoute.name) },
                 label = { Text(topLevelRoute.name) },
                 selected = currentDestination?.hierarchy?.any { it.hasRoute(topLevelRoute.route::class) } == true,
                 onClick = {
                     navController.navigate(topLevelRoute.route) {
-                          popUpTo(navController.graph.findStartDestination().id) {
+                        popUpTo(navController.graph.findStartDestination().id) {
                             saveState = true
                         }
-                         launchSingleTop = true
-                        // Restore state when reselecting a previously selected item
+                        launchSingleTop = true
                         restoreState = true
                     }
                 }
