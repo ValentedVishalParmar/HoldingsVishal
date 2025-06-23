@@ -1,6 +1,7 @@
 package com.dataholding.vishal.coreui.screen.component
 
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -22,6 +23,7 @@ import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
 import com.dataholding.vishal.coreui.R
+import com.dataholding.vishal.coreui.util.FormattedAmount
 import com.dataholding.vishal.coreui.util.Symbol
 import com.dataholding.vishal.coreui.widgets.TextLargeTitleBold
 import com.dataholding.vishal.coreui.widgets.TextSmallTitle
@@ -38,7 +40,9 @@ fun HoldingValueItem(
 ) {
     Column(
         modifier = modifier
-            .fillMaxWidth()
+            .fillMaxWidth().clickable{
+                onItemClick()
+            }
             .wrapContentHeight()
             .background(color = colorResource(R.color.white))
     ) {
@@ -63,7 +67,7 @@ fun HoldingValueItem(
                 verticalAlignment = Alignment.CenterVertically
             ) {
                 Text(stringResource(R.string.ltp_value), color = Color.Gray)
-                TextSmallTitle(text = Symbol.SYM_RUPEES.plus(ltpValue), textAlign = TextAlign.Start)
+                TextSmallTitle(text = Symbol.SYM_RUPEES.plus(ltpValue.toDouble().FormattedAmount()), textAlign = TextAlign.Start)
             }
         }
 
@@ -99,8 +103,8 @@ fun HoldingValueItem(
             ) {
                 Text(stringResource(R.string.pl_value), color = Color.Gray)
                 Text(
-                    text = if (isProfit) Symbol.SYM_RUPEES.plus(plValue) else Symbol.SYM_RUPEES_MINUS.plus(
-                        plValue
+                    text = if (isProfit) Symbol.SYM_RUPEES.plus(plValue.toDouble().FormattedAmount()) else Symbol.SYM_RUPEES_MINUS.plus(
+                        plValue.removePrefix("-").toDouble().FormattedAmount()
                     ),
                     textAlign = TextAlign.Start,
                     color = if (isProfit) Color.Green else Color.Red

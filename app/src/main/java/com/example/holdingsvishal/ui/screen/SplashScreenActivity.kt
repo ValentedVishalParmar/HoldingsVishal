@@ -93,7 +93,7 @@ fun SplashViews() {
 
         // APP VERSION
         TextSmallTitle(
-            text = stringResource(R.string.app_version),
+            text = stringResource(R.string.app_version, BuildConfig.VERSION_NAME),
             textAlign = TextAlign.Center,
             modifier = Modifier
                 .fillMaxWidth()

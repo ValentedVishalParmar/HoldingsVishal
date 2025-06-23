@@ -27,7 +27,6 @@
             android:exported="true"
             android:launchMode="singleTop"
             android:screenOrientation="portrait"
-            android:label="@string/title_activity_splash_screen"
             android:theme="@style/Theme.HoldingsVishal">
 
             <intent-filter>

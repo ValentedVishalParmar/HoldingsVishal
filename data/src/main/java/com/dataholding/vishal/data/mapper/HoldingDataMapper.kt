@@ -1,5 +1,6 @@
 package com.dataholding.vishal.data.mapper
 
+import android.util.Log
 import com.dataholding.vishal.core.mapper.ResultMapper
 import com.dataholding.vishal.data.dto.HoldingDataApiResponseModel
 import com.dataholding.vishal.domain.model.HoldingData
@@ -11,6 +12,7 @@ class HoldingDataMapper @Inject constructor() :
     override fun map(map: HoldingDataApiResponseModel): List<HoldingData?>? {
             var totalProfitAndLoss: Double = 0.0
             var totalInvestmentValue: Double = 0.0
+        Log.e("userHolding>>>", "map: ${map.responseData?.userHolding}", )
         return map.responseData?.userHolding?.map { userHolding ->
             var todayInvestment: Double = 0.0
             var currentValue: Double = 0.0
@@ -41,11 +43,11 @@ class HoldingDataMapper @Inject constructor() :
                 }
 
                 HoldingData(
-                    symbol = userHolding?.symbol,
-                    avgPrice = userHolding?.avgPrice,
-                    close = userHolding?.close,
-                    ltp = userHolding?.ltp,
-                    quantity = userHolding?.quantity,
+                    symbol = userHolding.symbol,
+                    avgPrice = userHolding.avgPrice,
+                    close = userHolding.close,
+                    ltp = userHolding.ltp,
+                    quantity = userHolding.quantity,
                     todayInvestment = todayInvestment,
                 currentValue =  currentValue,
                 totalProfitAndLoss =  totalProfitAndLoss,
