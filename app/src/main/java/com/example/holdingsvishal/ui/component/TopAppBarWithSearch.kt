@@ -19,9 +19,9 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.dataholding.vishal.coreui.R
-import com.dataholding.vishal.coreui.util.TopBarMenu
-import com.dataholding.vishal.coreui.widgets.CircleImageView
+import com.dataholding.vishal.core.ui.widgets.CircleImageView
+import com.dataholding.vishal.core.util.TopBarMenu
+import com.dataholding.vishal.presentation.R
 
 //todo:: 18] create all required design component in this package
 @OptIn(ExperimentalMaterial3Api::class)
@@ -44,7 +44,7 @@ fun TopAppBarWithSearch(
         navigationIcon = {
             // 2.PROFILE IMAGE
             CircleImageView(
-                imageId = R.drawable.ic_app_icon,
+                imageId = com.dataholding.vishal.core.R.drawable.ic_app_icon,
                 size = 32.dp,
                 modifier = Modifier.padding(16.dp)
             )

@@ -1,58 +1,41 @@
 package com.dataholding.vishal.data.mapper
 
-import android.util.Log
 import com.dataholding.vishal.core.mapper.ResultMapper
 import com.dataholding.vishal.data.dto.HoldingDataApiResponseModel
 import com.dataholding.vishal.domain.model.HoldingData
 import javax.inject.Inject
-import kotlin.Double
 
+/**
+ * Mapper class to convert [HoldingDataApiResponseModel] DTOs to a list of [HoldingData] domain models.
+ *
+ * Usage:
+ * Used in the data layer to map API response models to domain models for further processing in the domain layer.
+ *
+ * @constructor Injects the mapper for dependency injection frameworks (e.g., Hilt).
+ */
 class HoldingDataMapper @Inject constructor() :
     ResultMapper<HoldingDataApiResponseModel, List<HoldingData?>?> {
+
+    /**
+     * Maps a [HoldingDataApiResponseModel] to a list of [HoldingData] domain models.
+     *
+     * @param map The API response model to be mapped.
+     * @return List of [HoldingData] domain models, or null if the response data is null.
+     */
     override fun map(map: HoldingDataApiResponseModel): List<HoldingData?>? {
-            var totalProfitAndLoss: Double = 0.0
-            var totalInvestmentValue: Double = 0.0
-        Log.e("userHolding>>>", "map: ${map.responseData?.userHolding}", )
         return map.responseData?.userHolding?.map { userHolding ->
-            var todayInvestment: Double = 0.0
-            var currentValue: Double = 0.0
-            var todayProfitLoss: Double = 0.0
-
-            userHolding?.let { newData ->
-                with(newData) {
-                    ltp?.let { it ->
-                        quantity?.let { it1 ->
-                            close?.let { it2 ->
-                                todayProfitLoss += (it2 - it) * it1
-                            }
-                            currentValue = currentValue.plus(it1 * it)
-                        }
-                    }
-
-                    avgPrice?.let { it ->
-                        quantity?.let { it1 ->
-                            todayInvestment = it * it1
-                            totalInvestmentValue = totalInvestmentValue.plus(it1 * it)
-                        }
-                    }
-
-                    totalProfitAndLoss = totalProfitAndLoss.plus(
-                        currentValue.minus(totalInvestmentValue)
-                    )
-
-                }
-
+            userHolding?.let {
                 HoldingData(
-                    symbol = userHolding.symbol,
-                    avgPrice = userHolding.avgPrice,
-                    close = userHolding.close,
-                    ltp = userHolding.ltp,
-                    quantity = userHolding.quantity,
-                    todayInvestment = todayInvestment,
-                currentValue =  currentValue,
-                totalProfitAndLoss =  totalProfitAndLoss,
-                totalInvestmentValue =  totalInvestmentValue,
-                    todayProfitLoss =  todayProfitLoss,
+                    symbol = it.symbol,
+                    avgPrice = it.avgPrice,
+                    close = it.close,
+                    ltp = it.ltp,
+                    quantity = it.quantity,
+                    todayInvestment = 0.0,
+                    currentValue = 0.0,
+                    totalProfitAndLoss = 0.0,
+                    totalInvestmentValue = 0.0,
+                    todayProfitLoss = 0.0,
                 )
             }
         }

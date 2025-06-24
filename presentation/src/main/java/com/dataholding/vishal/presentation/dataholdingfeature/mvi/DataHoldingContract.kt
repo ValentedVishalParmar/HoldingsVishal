@@ -1,7 +1,7 @@
 package com.dataholding.vishal.presentation.dataholdingfeature.mvi
 
 import com.dataholding.vishal.core.error.Failure
-import com.dataholding.vishal.coreui.mvi.MVIContract
+import com.dataholding.vishal.core.mvi.MVIContract
 import com.dataholding.vishal.domain.model.HoldingData
 
 // todo:: 24] create this file for state, effect, event for specific feature of this module per screen

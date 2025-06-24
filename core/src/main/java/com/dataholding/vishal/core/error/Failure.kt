@@ -1,7 +1,6 @@
 package com.dataholding.vishal.core.error
 
-import com.dataholding.vishal.core.util.ErrorMessage.ERR_UNKNOWN
-import com.dataholding.vishal.core.util.ErrorMessage.ERR_UNKNOWN_NETWORK
+import com.dataholding.vishal.core.util.ErrorMsg
 import java.io.IOException
 
 sealed class Failure {
@@ -10,10 +9,11 @@ sealed class Failure {
     data class UnknownError(val throwable: Throwable) : Failure()
 }
 
-fun Failure.getError(): String {
+
+fun Failure.getError(): Pair<Int?, String?>? {
     return when (this) {
-        is Failure.NetworkError -> ERR_UNKNOWN_NETWORK.plus(exception.message)
-        is Failure.ServerError -> message
-        is Failure.UnknownError -> ERR_UNKNOWN.plus(throwable.message)
+        is Failure.NetworkError -> Pair(ErrorMsg.ERR_UNKNOWN_NETWORK.msg, exception.message)
+        is Failure.ServerError -> Pair(0, message)
+        is Failure.UnknownError -> Pair(ErrorMsg.ERR_UNKNOWN.msg, throwable.message)
     }
 }

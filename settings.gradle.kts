@@ -22,7 +22,6 @@ dependencyResolutionManagement {
 rootProject.name = "Vishal Holding Data"
 include(":app")
 include(":core")
-include(":core-ui")
 include(":presentation")
 include(":domain")
 include(":data")

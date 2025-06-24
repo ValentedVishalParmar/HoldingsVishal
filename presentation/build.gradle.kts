@@ -41,6 +41,7 @@ android {
     buildFeatures {
         compose = true
     }
+
     composeOptions {
         kotlinCompilerExtensionVersion = "1.5.7"
     }
@@ -53,7 +54,6 @@ dependencies {
     // todo:: 23] add :domain :code : core-ui hilt and its compiler
     api(project(":domain"))
     api(project(":core"))
-    api(project(":core-ui"))
 
     // CORE
     implementation(libs.androidx.core.ktx)

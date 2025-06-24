@@ -21,14 +21,13 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
-import com.dataholding.vishal.coreui.widgets.CircleImageView
-import com.dataholding.vishal.coreui.widgets.TextLargeTitle
-import com.dataholding.vishal.coreui.widgets.TextSmallTitle
+import com.dataholding.vishal.core.ui.widgets.CircleImageView
+import com.dataholding.vishal.core.ui.widgets.TextLargeTitle
+import com.dataholding.vishal.core.ui.widgets.TextSmallTitle
 import com.example.holdingsvishal.BuildConfig
 import com.example.holdingsvishal.R
 import com.example.holdingsvishal.ui.theme.HoldingsVishalTheme
