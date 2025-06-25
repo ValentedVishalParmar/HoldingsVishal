@@ -72,4 +72,7 @@ interface HoldingDataRepository {
      * @return True if fresh cached data is available.
      */
     suspend fun hasFreshCachedData(): Boolean
+
+    // New: Save processed holdings to DB
+    suspend fun saveProcessedHoldingsToDb(list: List<HoldingData>)
 }

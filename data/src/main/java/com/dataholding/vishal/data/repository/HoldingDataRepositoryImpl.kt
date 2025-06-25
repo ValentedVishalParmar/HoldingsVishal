@@ -160,5 +160,9 @@ class HoldingDataRepositoryImpl @Inject constructor(
         return !localDataSource.isDataStale(DATA_FRESHNESS_THRESHOLD) && 
                localDataSource.getHoldingDataCount() > 0
     }
+
+    override suspend fun saveProcessedHoldingsToDb(list: List<HoldingData>) {
+        localDataSource.saveHoldingData(list)
+    }
 }
 

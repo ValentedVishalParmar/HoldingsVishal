@@ -161,7 +161,7 @@ fun DataHoldingScreenUI(
                 HorizontalDivider(modifier = Modifier.height(1.dp))
 
                 // 5] TOTAL PROFIT OR LOSS
-                ProfitAndLossRow(state?.dataHoldingList?.get(0)?.totalProfitAndLoss.formattedAmount(), isFromBottomSheet = true) {
+                ProfitAndLossRow(state.dataHoldingList?.get(0)?.totalProfitAndLoss.formattedAmount(), isFromBottomSheet = true) {
                     scope.launch { sheetState.hide() }.invokeOnCompletion {
                         if (!sheetState.isVisible) {
                             showBottomSheet.value = false

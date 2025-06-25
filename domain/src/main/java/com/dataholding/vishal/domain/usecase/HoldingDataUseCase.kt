@@ -38,7 +38,12 @@ class HoldingDataUseCase @Inject constructor(
         val data = holdingDataRepository.apiCallForGetHoldingData()
         return data.fold(
             { Either.Left(it) },
-            { mappedList -> Either.Right(businessLogic.applyBusinessLogic(mappedList)) }
+            { mappedList ->
+                val processed = businessLogic.applyBusinessLogic(mappedList)
+                // Save processed data to DB
+                holdingDataRepository.saveProcessedHoldingsToDb(processed?.filterNotNull() ?: emptyList())
+                Either.Right(processed)
+            }
         )
     }
 
