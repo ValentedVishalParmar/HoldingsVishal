@@ -37,3 +37,7 @@ enum class ErrorMsg(@StringRes val msg:Int)
         return context.getString(msg)
     }
 }
+
+enum class TopAppBarState {
+    Portfolio,
+}

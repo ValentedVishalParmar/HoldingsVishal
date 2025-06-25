@@ -28,11 +28,11 @@ import androidx.compose.ui.unit.dp
 import com.dataholding.vishal.core.ui.widgets.CircleImageView
 import com.dataholding.vishal.core.ui.widgets.TextLargeTitle
 import com.dataholding.vishal.core.ui.widgets.TextSmallTitle
+import com.dataholding.vishal.core.util.finishAndNavigateTo
 import com.example.holdingsvishal.BuildConfig
 import com.example.holdingsvishal.R
 import com.example.holdingsvishal.ui.theme.HoldingsVishalTheme
 import com.example.holdingsvishal.util.Constants.SPLASH_DISPLAY_DURATION
-import com.example.holdingsvishal.util.finishAndNavigateTo
 import dagger.hilt.android.AndroidEntryPoint
 
 @SuppressLint("CustomSplashScreen")

@@ -16,12 +16,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import com.dataholding.vishal.core.util.TopAppBarState
 import com.dataholding.vishal.presentation.dataholdingfeature.mvi.DataHoldingContract
 import com.dataholding.vishal.presentation.dataholdingfeature.ui.screen.DataHoldingScreen
 import com.dataholding.vishal.presentation.dataholdingfeature.viewmodel.DataHoldingViewModel
 import com.example.holdingsvishal.navigation.DataHolding
 import com.example.holdingsvishal.ui.component.TopAppBarWithSearch
-import com.example.holdingsvishal.util.TopAppBarState
 
 @Composable
 fun PortfolioScreen() {

@@ -52,12 +52,12 @@ fun FullScreenError(
         )
         
         Spacer(modifier = Modifier.height(16.dp))
-        
+
         TextSmallTitle(
             text = errorMsg, 
             textAlign = TextAlign.Center
         )
-        
+
         if (showRetryButton && onRetryClick != null) {
             Spacer(modifier = Modifier.height(24.dp))
             
@@ -66,8 +66,8 @@ fun FullScreenError(
                 modifier = Modifier.padding(horizontal = 32.dp)
             ) {
                 Text(text = retryButtonText)
-            }
-        }
+    }
+}
     }
 }
 

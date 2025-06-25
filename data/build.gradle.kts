@@ -57,6 +57,11 @@ dependencies {
     api(libs.kotlinx.serialization.json)
     implementation(libs.retrofit2.kotlinx.serialization.converter)
 
+    // ROOM DATABASE
+    implementation(libs.androidx.room.runtime)
+    implementation(libs.androidx.room.ktx)
+    ksp(libs.androidx.room.compiler)
+
     //HILT DAGGER
     implementation(libs.hilt.android)
     ksp(libs.hilt.android.compiler)
