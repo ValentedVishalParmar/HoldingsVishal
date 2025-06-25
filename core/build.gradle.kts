@@ -3,6 +3,8 @@ plugins {
     alias(libs.plugins.kotlin.android)
     alias(libs.plugins.kotlin.compose)
     alias(libs.plugins.kotlin.serialization)
+    alias(libs.plugins.dagger.hilt)
+    alias(libs.plugins.kotlin.ksp)
 }
 
 android {
@@ -29,6 +31,7 @@ android {
 
     buildFeatures {
         compose = true
+        buildConfig = true
     }
 
     compileOptions {
@@ -70,6 +73,10 @@ dependencies {
 
     // GLIDE
     api(libs.glide)
+
+    //HILT DAGGER
+    implementation(libs.hilt.android)
+    ksp(libs.hilt.android.compiler)
 
     testImplementation(libs.junit)
     androidTestImplementation(libs.androidx.junit)

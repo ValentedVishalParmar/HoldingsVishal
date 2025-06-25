@@ -2,6 +2,7 @@ package com.dataholding.vishal.presentation.dataholdingfeature.viewmodel
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.dataholding.vishal.core.error.Failure
 import com.dataholding.vishal.core.functional.fold
 import com.dataholding.vishal.core.extension.stateInWhileActive
 import com.dataholding.vishal.domain.usecase.HoldingDataUseCase
@@ -12,6 +13,7 @@ import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.asSharedFlow
+import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 import javax.inject.Inject
@@ -23,11 +25,13 @@ import javax.inject.Inject
  * Used in the presentation layer to manage UI state, handle events, and emit effects for the Data Holding screen.
  *
  * @property dataUseCase The use case for retrieving and processing holding data.
- * @constructor Injects the use case for dependency injection frameworks (e.g., Hilt).
+ * @property networkHandler The network handler for handling network connectivity and errors.
+ * @constructor Injects the use case and network handler for dependency injection frameworks (e.g., Hilt).
  */
 @HiltViewModel
-class DataHoldingViewModel @Inject constructor(private val dataUseCase: HoldingDataUseCase) :
-    ViewModel(), DataHoldingContract {
+class DataHoldingViewModel @Inject constructor(
+    private val dataUseCase: HoldingDataUseCase,
+) : ViewModel(), DataHoldingContract {
 
     /**
      * Mutable state for the UI, representing the current screen state.
@@ -51,12 +55,15 @@ class DataHoldingViewModel @Inject constructor(private val dataUseCase: HoldingD
      * State flow of the current UI state for the UI to observe.
      */
     override val state: StateFlow<DataHoldingContract.DataHoldingState>
-        get() = mutableUIState.stateInWhileActive(
-            viewModelScope,
-            DataHoldingContract.DataHoldingState.Loading
-        ) {
-            event(DataHoldingContract.DataHoldingEvent.LoadDataHoldingList)
-        }
+        get() = mutableUIState.asStateFlow()
+
+    // Guard to prevent multiple simultaneous API calls
+    private var isApiCallInProgress = false
+
+    init {
+        // Load data when ViewModel is created
+        loadDataHoldings()
+    }
 
     /**
      * Handles events from the UI and updates state or emits effects accordingly.
@@ -66,7 +73,10 @@ class DataHoldingViewModel @Inject constructor(private val dataUseCase: HoldingD
     override fun event(event: DataHoldingContract.DataHoldingEvent) {
         when (event) {
             is DataHoldingContract.DataHoldingEvent.LoadDataHoldingList -> {
-                loadDataHoldings()
+                // Only load if not already in progress
+                if (!isApiCallInProgress) {
+                    loadDataHoldings()
+                }
             }
             is DataHoldingContract.DataHoldingEvent.DataHoldingItemClicked -> {
                 viewModelScope.launch {
@@ -77,19 +87,49 @@ class DataHoldingViewModel @Inject constructor(private val dataUseCase: HoldingD
                     )
                 }
             }
+            is DataHoldingContract.DataHoldingEvent.RetryDataLoad -> {
+                // Always allow retry, even if currently loading (user explicitly requested it)
+                loadDataHoldings()
+            }
         }
     }
 
     /**
      * Loads holding data using the use case and updates the UI state based on the result.
+     * Network connectivity errors and retry mechanisms are handled internally by the NetworkHandler.
      */
     private fun loadDataHoldings() {
+        // Prevent multiple simultaneous API calls
+        if (isApiCallInProgress) {
+            return
+        }
+        
         viewModelScope.launch {
-            dataUseCase.getInvokeHoldingDataApiCall().fold({
-                updateState(DataHoldingContract.DataHoldingState.Error(it))
-            }, {
-                updateState(DataHoldingContract.DataHoldingState.Success(it))
-            })
+            isApiCallInProgress = true
+            updateState(DataHoldingContract.DataHoldingState.Loading)
+            
+            try {
+                dataUseCase.getInvokeHoldingDataApiCall().fold(
+                    { failure ->
+                        when (failure) {
+                            is Failure.NetworkConnectivityError -> {
+                                updateState(DataHoldingContract.DataHoldingState.NetworkError(failure.message))
+                            }
+                            is Failure.NetworkError -> {
+                                updateState(DataHoldingContract.DataHoldingState.NetworkError("Network error occurred"))
+                            }
+                            else -> {
+                                updateState(DataHoldingContract.DataHoldingState.Error(failure))
+                            }
+                        }
+                    },
+                    { data ->
+                        updateState(DataHoldingContract.DataHoldingState.Success(data))
+                    }
+                )
+            } finally {
+                isApiCallInProgress = false
+            }
         }
     }
 

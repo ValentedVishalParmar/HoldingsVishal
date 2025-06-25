@@ -5,6 +5,12 @@ import com.dataholding.vishal.core.functional.Either
 import okio.IOException
 import retrofit2.HttpException
 
+/**
+ * Extension function to convert exceptions to Either.Failure.
+ *
+ * @return Either.Left containing the appropriate Failure type.
+ */
+
 fun Throwable.toEither(): Either<Failure, Nothing> {
     return when (this) {
         is IOException -> Either.Left(Failure.NetworkError(this))

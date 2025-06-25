@@ -55,9 +55,9 @@ fun Activity.disableClick(view: View?) {
 
 }
 
-fun Double?.FormattedAmount(): String {
+fun Double?.formattedAmount(): String {
     val otherSymbols = DecimalFormatSymbols(Locale.US)
-    val decimalFormat = DecimalFormat("#,###,###.##", otherSymbols)
+    val decimalFormat = DecimalFormat("#######.##", otherSymbols)
     return decimalFormat.format(this).toString()
 
 }

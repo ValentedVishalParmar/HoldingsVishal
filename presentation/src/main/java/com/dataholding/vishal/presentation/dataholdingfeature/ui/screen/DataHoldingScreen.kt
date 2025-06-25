@@ -35,8 +35,10 @@ import com.dataholding.vishal.presentation.dataholdingfeature.ui.component.Holdi
 import com.dataholding.vishal.presentation.dataholdingfeature.ui.component.ProfitAndLossCardView
 import com.dataholding.vishal.presentation.dataholdingfeature.ui.component.ProfitAndLossRow
 import com.dataholding.vishal.core.ui.screen.FullScreenError
+import com.dataholding.vishal.core.ui.screen.NetworkErrorScreen
 import com.dataholding.vishal.core.ui.screen.LinearFullScreenProgress
 import com.dataholding.vishal.core.ui.widgets.TextSmallTitle
+import com.dataholding.vishal.core.util.formattedAmount
 import com.dataholding.vishal.core.util.Symbol
 import com.dataholding.vishal.presentation.dataholdingfeature.mvi.DataHoldingContract
 import kotlinx.coroutines.launch
@@ -59,6 +61,13 @@ fun DataHoldingScreen(
                 FullScreenError(stringResource(state.error.getError()?.first!!, state.error.getError()?.second!!), R.drawable.ic_app_icon)
             }
 
+        }
+        
+        is DataHoldingContract.DataHoldingState.NetworkError -> {
+            NetworkErrorScreen(
+                onRetryClick = { dispatch(DataHoldingContract.DataHoldingEvent.RetryDataLoad) },
+                errorMsg = state.message
+            )
         }
 
         DataHoldingContract.DataHoldingState.Loading -> {
@@ -109,7 +118,7 @@ fun DataHoldingScreenUI(
                 ) {
                     Text(stringResource(R.string.current_value))
                     TextSmallTitle(
-                        text = Symbol.SYM_RUPEES.plus(state?.dataHoldingList?.get(0)?.currentValue),
+                        text = Symbol.SYM_RUPEES.plus(state?.dataHoldingList?.get(0)?.currentValue.formattedAmount()),
                         textAlign = TextAlign.Start
                     )
                 }
@@ -126,7 +135,7 @@ fun DataHoldingScreenUI(
                 ) {
                     Text(stringResource(R.string.total_investment))
                     Text(
-                        text = Symbol.SYM_RUPEES.plus(state?.dataHoldingList?.get(0)?.totalInvestmentValue),
+                        text = Symbol.SYM_RUPEES.plus(state?.dataHoldingList?.get(0)?.totalInvestmentValue.formattedAmount()),
                         textAlign = TextAlign.Start,
                     )
                 }
@@ -143,7 +152,7 @@ fun DataHoldingScreenUI(
                 ) {
                     Text(stringResource(R.string.today_profit_loss))
                     Text(
-                        text = Symbol.SYM_RUPEES.plus(state?.dataHoldingList?.get(0)?.todayProfitLoss),
+                        text = Symbol.SYM_RUPEES.plus(state?.dataHoldingList?.get(0)?.todayProfitLoss.formattedAmount()),
                         textAlign = TextAlign.Start,
                     )
                 }
@@ -152,7 +161,7 @@ fun DataHoldingScreenUI(
                 HorizontalDivider(modifier = Modifier.height(1.dp))
 
                 // 5] TOTAL PROFIT OR LOSS
-                ProfitAndLossRow(state?.dataHoldingList?.get(0)?.totalProfitAndLoss?.toString(), isFromBottomSheet = true) {
+                ProfitAndLossRow(state?.dataHoldingList?.get(0)?.totalProfitAndLoss.formattedAmount(), isFromBottomSheet = true) {
                     scope.launch { sheetState.hide() }.invokeOnCompletion {
                         if (!sheetState.isVisible) {
                             showBottomSheet.value = false
@@ -205,8 +214,8 @@ fun DataHoldingScreenUI(
         }
 
         //2] LAST ITEM PROFIT AND LOSE VIEW
-        if (showBottomSheet.value == false) {
-            ProfitAndLossCardView(state?.dataHoldingList?.get(0)?.totalProfitAndLoss?.toString(), onClickedExpandCollapsed = {
+        if (!showBottomSheet.value) {
+            ProfitAndLossCardView(state.dataHoldingList?.get(0)?.totalProfitAndLoss.formattedAmount(), onClickedExpandCollapsed = {
                 showBottomSheet.value = true
             })
         }
