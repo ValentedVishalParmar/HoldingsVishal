@@ -23,13 +23,16 @@ class HoldingsVishalApp : Application() {
     @Inject
     lateinit var networkHandler: NetworkHandler
 
-    companion object;
+    companion object{
+
+    }
 
     override fun onCreate() {
         super.onCreate()
-        // Network monitoring is automatically started by NetworkHandler when needed
-        // No additional initialization required
+        checkForSecurityConcerns()
+    }
 
+    private fun checkForSecurityConcerns() {
         // Security checks
         if (SecurityUtils.isDebuggerAttached()) {
             Log.w("Security", "Debugger is attached! Possible reverse engineering attempt.")

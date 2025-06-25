@@ -5,12 +5,14 @@ import com.dataholding.vishal.data.local.dao.HoldingDataDao
 import com.dataholding.vishal.data.local.database.AppDatabase
 import com.dataholding.vishal.data.local.datasource.HoldingDataLocalDataSource
 import com.dataholding.vishal.data.local.datasource.HoldingDataLocalDataSourceImpl
+import com.dataholding.vishal.core.util.KeystoreUtils
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.android.qualifiers.ApplicationContext
 import dagger.hilt.components.SingletonComponent
 import javax.inject.Singleton
+import net.sqlcipher.database.SupportFactory
 
 /**
  * Hilt module for database dependencies.
@@ -32,7 +34,8 @@ object DatabaseModule {
     @Provides
     @Singleton
     fun provideAppDatabase(@ApplicationContext context: Context): AppDatabase {
-        return AppDatabase.getDatabase(context)
+        val passphrase = KeystoreUtils.getOrCreatePassphrase(context)
+        return AppDatabase.getDatabase(context, passphrase)
     }
 
     /**

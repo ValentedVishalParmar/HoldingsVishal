@@ -1,11 +1,12 @@
 package com.dataholding.vishal.data.local.database
 
+import android.content.Context
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
-import android.content.Context
 import com.dataholding.vishal.data.local.dao.HoldingDataDao
 import com.dataholding.vishal.data.local.entity.HoldingDataEntity
+import net.sqlcipher.database.SupportFactory
 
 /**
  * Room database for the application.
@@ -33,18 +34,22 @@ abstract class AppDatabase : RoomDatabase() {
         private var INSTANCE: AppDatabase? = null
 
         /**
-         * Gets the database instance (singleton pattern).
+         * Gets the database instance (singleton pattern) with encryption.
          *
          * @param context Application context.
+         * @param passphrase Encryption passphrase.
          * @return Database instance.
          */
-        fun getDatabase(context: Context): AppDatabase {
+        fun getDatabase(context: Context, passphrase: String): AppDatabase {
+            val passphraseBytes = net.sqlcipher.database.SQLiteDatabase.getBytes(passphrase.toCharArray())
+            val factory = SupportFactory(passphraseBytes)
             return INSTANCE ?: synchronized(this) {
                 val instance = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java,
                     "app_database"
                 )
+                .openHelperFactory(factory) // Enable SQLCipher encryption
                 .fallbackToDestructiveMigration()
                 .build()
                 INSTANCE = instance

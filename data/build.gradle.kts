@@ -61,6 +61,8 @@ dependencies {
     implementation(libs.androidx.room.runtime)
     implementation(libs.androidx.room.ktx)
     ksp(libs.androidx.room.compiler)
+    // SQLCipher for encrypted Room
+    implementation("net.zetetic:android-database-sqlcipher:4.5.4")
 
     //HILT DAGGER
     implementation(libs.hilt.android)

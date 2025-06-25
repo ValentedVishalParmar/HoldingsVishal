@@ -29,7 +29,7 @@ object SecurityUtils {
      * Replace EXPECTED_SIGNATURE with your release signature hash.
      */
     fun isAppTampered(context: Context): Boolean {
-        val expectedSignature = "YOUR_RELEASE_SIGNATURE_HASH" // TODO: Replace with your real release signature hash
+        val expectedSignature = "sha256/aNTI4TpC4IPJTWCAxWWZXs9KZmIGBn8Pv/JTbBD5yWY=" // TODO: Replace with your real release signature hash
         return try {
             val packageInfo = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.P) {
                 context.packageManager.getPackageInfo(context.packageName, PackageManager.GET_SIGNING_CERTIFICATES)
