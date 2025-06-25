@@ -4,6 +4,8 @@ import android.app.Application
 import com.dataholding.vishal.data.remote.handler.NetworkHandler
 import dagger.hilt.android.HiltAndroidApp
 import javax.inject.Inject
+import com.dataholding.vishal.core.util.SecurityUtils
+import android.util.Log
 
 /**
  * Application class for the Holdings Vishal app.
@@ -27,6 +29,20 @@ class HoldingsVishalApp : Application() {
         super.onCreate()
         // Network monitoring is automatically started by NetworkHandler when needed
         // No additional initialization required
+
+        // Security checks
+        if (SecurityUtils.isDebuggerAttached()) {
+            Log.w("Security", "Debugger is attached! Possible reverse engineering attempt.")
+            // Optionally: exitProcess(0) or show warning
+        }
+        if (SecurityUtils.isDeviceRooted()) {
+            Log.w("Security", "Device is rooted! Increased risk of tampering.")
+            // Optionally: exitProcess(0) or show warning
+        }
+        if (SecurityUtils.isAppTampered(this)) {
+            Log.w("Security", "App signature does not match! Possible tampering detected.")
+            // Optionally: exitProcess(0) or show warning
+        }
     }
 
     override fun onTerminate() {

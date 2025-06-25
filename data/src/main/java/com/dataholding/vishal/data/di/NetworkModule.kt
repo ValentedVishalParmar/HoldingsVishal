@@ -12,6 +12,7 @@ import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import javax.inject.Singleton
+import okhttp3.CertificatePinner
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -30,10 +31,22 @@ object NetworkModule {
 
     @Provides
     @Singleton
-    fun provideRetrofit(url: String, loggingInterceptor: HttpLoggingInterceptor): Retrofit =
+    fun provideOkHttpClient(loggingInterceptor: HttpLoggingInterceptor): OkHttpClient {
+        // TODO: Replace with your real domain and SHA-256 hash
+        val certificatePinner = CertificatePinner.Builder()
+            .add("35dee773a9ec441e9f38d5fc249406ce.api.mockbin.io", "sha256/aNTI4TpC4IPJTWCAxWWZXs9KZmIGBn8Pv/JTbBD5yWY=").build()
+        return OkHttpClient.Builder()
+            .addInterceptor(loggingInterceptor)
+            .certificatePinner(certificatePinner)
+            .build()
+    }
+
+    @Provides
+    @Singleton
+    fun provideRetrofit(url: String, okHttpClient: OkHttpClient): Retrofit =
         Retrofit.Builder().baseUrl(url)
             .addConverterFactory(networkJson.asConverterFactory("application/json".toMediaType()))
-            .client(OkHttpClient.Builder().addInterceptor(loggingInterceptor).build())
+            .client(okHttpClient)
             .build()
 
     @Provides
