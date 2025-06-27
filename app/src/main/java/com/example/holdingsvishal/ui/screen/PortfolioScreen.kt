@@ -47,6 +47,7 @@ fun PortfolioScreen() {
                 .padding(innerPadding)
 
         ) {
+
             composable<DataHolding> {
                 val showBottomSheet: MutableState<Boolean> = mutableStateOf(false)
                 val viewModel: DataHoldingViewModel = hiltViewModel()

@@ -74,7 +74,7 @@ class NetworkHandler @Inject constructor(
                 startNetworkMonitoring()
                 
                 return@withContext Either.Left(
-                    Failure.NetworkConnectivityError("No internet connection available")
+                    Failure.NetworkError(exception = null, message = "No internet connection available")
                 )
             }
             
@@ -98,7 +98,7 @@ class NetworkHandler @Inject constructor(
     ): Either<Failure, R> {
         return safeApiCall(ioDispatcher, apiCall, mapper, maxRetries = 0)
     }
-    
+
     /**
      * Executes API call with retry mechanism.
      */
@@ -110,11 +110,11 @@ class NetworkHandler @Inject constructor(
     ): Either<Failure, R> {
         var currentRetry = 0
         var currentDelay = initialDelay
-        
+
         while (currentRetry <= maxRetries) {
             val result = runCatching {
                 val response = apiCall()
-                
+
                 if (response.isSuccessful) {
                     response.body()?.let {
                         Either.Right(mapper.map(it))
@@ -130,12 +130,12 @@ class NetworkHandler @Inject constructor(
             }.getOrElse { exception ->
                 exception.toEither()
             }
-            
+
             // If successful, return the result immediately
             if (result is Either.Right) {
                 return result
             }
-            
+
             // Check if we should retry based on the error type
             val shouldRetry = when (result) {
                 is Either.Left -> {
@@ -146,17 +146,19 @@ class NetworkHandler @Inject constructor(
                             // Only retry on 5xx server errors, not 4xx client errors
                             failure.code in 500..599
                         }
+
                         else -> false
                     }
                 }
+
                 else -> false
             }
-            
+
             // If we shouldn't retry or this is the last attempt, return the result
             if (!shouldRetry || currentRetry == maxRetries) {
                 return result
             }
-            
+
             // If we get here, we should retry
             currentRetry++
             delay(currentDelay)

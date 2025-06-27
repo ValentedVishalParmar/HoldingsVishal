@@ -59,7 +59,7 @@ android {
 dependencies {
     // MODULE
     implementation(project(":presentation"))
-    implementation(project(":data"))
+    implementation(project(":data")) // no need here
 
     // ANDROID CORE AND DESIGN
     implementation(libs.androidx.core.ktx)

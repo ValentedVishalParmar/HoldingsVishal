@@ -23,34 +23,25 @@ class HoldingsVishalApp : Application() {
     @Inject
     lateinit var networkHandler: NetworkHandler
 
-    companion object{
-
-    }
-
     override fun onCreate() {
         super.onCreate()
         checkForSecurityConcerns()
     }
 
     private fun checkForSecurityConcerns() {
-        // Security checks
         if (SecurityUtils.isDebuggerAttached()) {
             Log.w("Security", "Debugger is attached! Possible reverse engineering attempt.")
-            // Optionally: exitProcess(0) or show warning
         }
         if (SecurityUtils.isDeviceRooted()) {
             Log.w("Security", "Device is rooted! Increased risk of tampering.")
-            // Optionally: exitProcess(0) or show warning
         }
         if (SecurityUtils.isAppTampered(this)) {
             Log.w("Security", "App signature does not match! Possible tampering detected.")
-            // Optionally: exitProcess(0) or show warning
         }
     }
 
     override fun onTerminate() {
         super.onTerminate()
-        // Clear all pending network requests when app is terminated
         networkHandler.clearPendingRequests()
     }
 }

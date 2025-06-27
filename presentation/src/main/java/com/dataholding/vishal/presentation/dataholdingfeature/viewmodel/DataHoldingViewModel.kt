@@ -112,9 +112,6 @@ class DataHoldingViewModel @Inject constructor(
                 dataUseCase.getInvokeHoldingDataApiCall().fold(
                     { failure ->
                         when (failure) {
-                            is Failure.NetworkConnectivityError -> {
-                                updateState(DataHoldingContract.DataHoldingState.NetworkError(failure.message))
-                            }
                             is Failure.NetworkError -> {
                                 updateState(DataHoldingContract.DataHoldingState.NetworkError("Network error occurred"))
                             }

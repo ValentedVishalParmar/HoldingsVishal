@@ -47,7 +47,7 @@ android {
 }
 
 dependencies {
-    // todo:: 23] add :domain :code : core-ui hilt and its compiler
+    // todo:: 23] add :domain :core hilt and its compiler
     api(project(":domain"))
     api(project(":core"))
 

@@ -138,7 +138,7 @@ android-library = { id = "com.android.library", version.ref = "agp" }
 kotlin-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 screenshot = { id = "com.android.compose.screenshot", version.ref = "screenshot"}
 android-junit = { id = "de.mannodermaus.android-junit5", version.ref = "androidJunit5"}
-spotless = { id = "com.diffplug.spotless", version = "7.0.4" }
+#spotless = { id = "com.diffplug.spotless", version = "7.0.4" }
 
 [bundles]
 unittest = ["junit-jupiter", "kotest-assertions-core", "mockk", "kotlinx-coroutines-test", "kotest-runner-junit5"]
