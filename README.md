@@ -378,6 +378,37 @@ Lower, unified approach
 *       
 *     This separation makes your code more predictable, testable, and maintainable!
 
+1. App Launch (HoldingsVishalApp.kt)
+   ↓
+2. MainActivity (MainActivity.kt)
+   ↓
+3. DataHoldingScreen (Compose UI)
+   ↓
+4. DataHoldingViewModel (Auto-load in init)
+   ↓
+5. HoldingDataUseCase.getInvokeHoldingDataApiCall()
+   ↓
+6. HoldingDataRepositoryImpl.apiCallForGetHoldingData()
+   ↓
+7. NetworkHandler.safeApiCall()
+   ↓
+8. NetworkConnectivity.isInternetAvailable()
+   ↓
+9. HoldingDataApiService.apiCallForGetHoldingData() (Retrofit)
+   ↓
+10. Mockbin API (External)
+    ↓
+11. HoldingDataMapper.map() (DTO → Domain)
+    ↓
+12. HoldingDataBusinessLogic.applyBusinessLogic()
+    ↓
+13. HoldingDataLocalDataSourceImpl.saveHoldingData() (Cache)
+    ↓
+14. Back through the chain to ViewModel
+    ↓
+15. ViewModel updates state
+    ↓
+16. Compose UI re-renders with new state
 
 
 ## 🚀 Getting Started
