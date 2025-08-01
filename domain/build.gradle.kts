@@ -9,7 +9,7 @@ plugins {
 
 android {
     namespace = "com.dataholding.vishal.domain"
-    compileSdk = 35
+    compileSdk = 36
 
     defaultConfig {
         minSdk = 24
